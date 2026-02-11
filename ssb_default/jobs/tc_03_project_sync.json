@@ -1,0 +1,35 @@
+{
+  "job_name" : "tc_03_project_sync",
+  "api_endpoints" : [ ],
+  "sql" : "\n-- ============================================\n-- TC-03: Project Sync with Git\n-- ============================================\n-- Prerequisites: run seed-test-cases.sh first\n-- (creates sync_test_table and this job)\n--\n-- STEP 1: Create a project with source settings\n--   (use the UI to set up git repo URL + credentials)\n--\n-- STEP 2: The sync_test_table has been pre-seeded.\n--   Add a python UDF, kafka datasource, and additional\n--   resources as needed.\n-- ============================================\n\n-- Pre-seeded table (already created by seed script):\n-- CREATE TABLE sync_test_table (id INT, value STRING)\n-- WITH ('connector' = 'datagen', 'rows-per-second' = '1');\n\nSELECT * FROM sync_test_table;\n\n-- ============================================\n-- STEP 3: Push project to remote repo\n--   EXPECTED: project synced to github\n--\n-- STEP 4: Delete project on SSB\n--   EXPECTED: project and resources deleted\n--\n-- STEP 5: Create new project WITHOUT source settings\n--\n-- STEP 6: Update source settings with INVALID data\n--   Try to push\n--   EXPECTED: error message\n--\n-- STEP 7: Update source settings with VALID data\n--   Import the previously pushed project\n--   EXPECTED: project populated with previously pushed sources\n-- ============================================\n",
+  "runtime_config" : {
+    "execution_mode" : "SESSION",
+    "runtime_mode" : "STREAMING",
+    "parallelism" : 1,
+    "sample_interval" : 1000,
+    "sample_count" : 100,
+    "window_size" : 100,
+    "start_with_savepoint" : false,
+    "savepoint_directory_path" : null,
+    "log_config" : null
+  },
+  "kubernetes_config" : {
+    "kubernetes_deployment_mode" : "NATIVE",
+    "restart_failed_job" : false,
+    "job_manager_replicas" : 1,
+    "job_manager_resource_config" : {
+      "cpu_request" : null,
+      "memory_request" : null,
+      "cpu_limit" : null,
+      "memory_limit" : null,
+      "ephemeral_storage" : null
+    },
+    "task_manager_resource_config" : {
+      "cpu_request" : null,
+      "memory_request" : null,
+      "cpu_limit" : null,
+      "memory_limit" : null,
+      "ephemeral_storage" : null
+    }
+  }
+}

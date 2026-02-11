@@ -1,0 +1,35 @@
+{
+  "job_name" : "tc_06_kafka",
+  "api_endpoints" : [ ],
+  "sql" : "\n-- ============================================\n-- TC-06: Kafka Connector\n-- ============================================\n-- Prerequisites: Kafka is running with test-1 topic\n-- containing messages: {id:1,name:Hello}, {id:2,name:Test}, {id:3,name:Bye}\n--\n-- STEP 1: Execute this SQL, then run the job\n-- EXPECTED: Job starts, status is RUNNING\n-- ============================================\n\nDROP TABLE IF EXISTS kafka_1;\nDROP TABLE IF EXISTS print_sink_1;\n\nCREATE TABLE `kafka_1` (\n  `id` INT,\n  `name` STRING\n) WITH (\n  'connector' = 'kafka',\n  'topic' = 'test-1',\n  'properties.bootstrap.servers' = 'csa-qe-kafka:9092',\n  'properties.security.protocol' = 'PLAINTEXT',\n  'scan.startup.mode' = 'earliest-offset',\n  'format' = 'json'\n);\n\nCREATE TABLE `print_sink_1` (\n  `id` INT,\n  `name` STRING\n) WITH (\n  'connector' = 'print'\n);\n\nINSERT INTO print_sink_1 SELECT * FROM kafka_1;\n\n-- ============================================\n-- STEP 2: Check task manager logs\n-- EXPECTED: +I[1, Hello] +I[2, Test] +I[3, Bye]\n-- ============================================\n",
+  "runtime_config" : {
+    "execution_mode" : "SESSION",
+    "runtime_mode" : "STREAMING",
+    "parallelism" : 1,
+    "sample_interval" : 1000,
+    "sample_count" : 100,
+    "window_size" : 100,
+    "start_with_savepoint" : false,
+    "savepoint_directory_path" : null,
+    "log_config" : null
+  },
+  "kubernetes_config" : {
+    "kubernetes_deployment_mode" : "NATIVE",
+    "restart_failed_job" : false,
+    "job_manager_replicas" : 1,
+    "job_manager_resource_config" : {
+      "cpu_request" : null,
+      "memory_request" : null,
+      "cpu_limit" : null,
+      "memory_limit" : null,
+      "ephemeral_storage" : null
+    },
+    "task_manager_resource_config" : {
+      "cpu_request" : null,
+      "memory_request" : null,
+      "cpu_limit" : null,
+      "memory_limit" : null,
+      "ephemeral_storage" : null
+    }
+  }
+}

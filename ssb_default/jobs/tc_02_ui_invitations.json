@@ -1,0 +1,35 @@
+{
+  "job_name" : "tc_02_ui_invitations",
+  "api_endpoints" : [ ],
+  "sql" : "\n-- ============================================\n-- TC-02: Project Invitations (UI)\n-- ============================================\n-- Prerequisites: run seed-test-cases.sh first\n-- (creates tc02_hello_world table and job)\n--\n-- Log in as alice in one browser, bob in another.\n--\n-- STEP 1: Create project as alice, invite bob\n--   EXPECTED: invitation listed on bob's SSB\n--\n-- STEP 2: Accept invitation as bob\n--   EXPECTED: project appears on bob's SSB\n--\n-- STEP 3: Create project as bob, invite alice, then cancel\n--   EXPECTED: invitation deleted\n--\n-- STEP 4: Repeat but decline as alice instead of cancel\n--   EXPECTED: invitation deleted\n--\n-- STEP 5: Switch to shared project as alice, verify\n--   tc02_hello_world table and job are visible.\n--   Switch as bob, verify resources visible.\n--   EXPECTED: bob can see project resources\n--\n-- STEP 6: Start tc_02_hello_world job as alice\n--   EXPECTED: job is read-only for bob\n-- ============================================\nSELECT 'See comments above for UI test steps' AS instructions;\n",
+  "runtime_config" : {
+    "execution_mode" : "SESSION",
+    "runtime_mode" : "STREAMING",
+    "parallelism" : 1,
+    "sample_interval" : 1000,
+    "sample_count" : 100,
+    "window_size" : 100,
+    "start_with_savepoint" : false,
+    "savepoint_directory_path" : null,
+    "log_config" : null
+  },
+  "kubernetes_config" : {
+    "kubernetes_deployment_mode" : "NATIVE",
+    "restart_failed_job" : false,
+    "job_manager_replicas" : 1,
+    "job_manager_resource_config" : {
+      "cpu_request" : null,
+      "memory_request" : null,
+      "cpu_limit" : null,
+      "memory_limit" : null,
+      "ephemeral_storage" : null
+    },
+    "task_manager_resource_config" : {
+      "cpu_request" : null,
+      "memory_request" : null,
+      "cpu_limit" : null,
+      "memory_limit" : null,
+      "ephemeral_storage" : null
+    }
+  }
+}

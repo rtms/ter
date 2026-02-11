@@ -1,0 +1,13 @@
+{
+  "metadata" : {
+    "connector" : "datagen",
+    "schema.0.data-type" : "INT",
+    "schema.1.name" : "value",
+    "rows-per-second" : "1",
+    "schema.0.name" : "id",
+    "schema.1.data-type" : "VARCHAR(2147483647)"
+  },
+  "type" : "ssb",
+  "table_name" : "sync_test_table",
+  "transform_code_b64_encoded" : false
+}

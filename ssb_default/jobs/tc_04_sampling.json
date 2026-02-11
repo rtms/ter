@@ -1,0 +1,35 @@
+{
+  "job_name" : "tc_04_sampling",
+  "api_endpoints" : [ ],
+  "sql" : "\n-- ============================================\n-- TC-04: Sampling\n-- ============================================\n-- Test sampling with various behaviors.\n-- Tip: use datagen with sequence to track records.\n--\n-- STEP 1: Create datagen table (1 row/sec)\n-- Execute this block, then start sampling in the UI.\n-- EXPECTED: sampling starts\n-- ============================================\n\nDROP TABLE IF EXISTS sample_dg;\nCREATE TABLE `sample_dg` (\n  `col_int` INT\n) WITH (\n  'connector' = 'datagen',\n  'fields.col_int.kind' = 'sequence',\n  'fields.col_int.start' = '1',\n  'fields.col_int.end' = '100000',\n  'rows-per-second' = '1'\n);\n\n-- ============================================\n-- STEP 2: Stop and restart sampling\n-- EXPECTED: sampling stops and restarts from where it stopped\n--\n-- STEP 3: Set sample count < total rows, enable 'sample all'\n-- EXPECTED: set number of samples shown, sampling stops\n--\n-- STEP 4: Set sample window, enable 'sample all'\n-- EXPECTED: samples update as records are generated\n-- ============================================\n\n-- STEP 5: Create fast datagen table (10 rows/sec)\n-- Test each sample behaviour below\n\nDROP TABLE IF EXISTS sample_dg_fast;\nCREATE TABLE `sample_dg_fast` (\n  `col_int` INT\n) WITH (\n  'connector' = 'datagen',\n  'fields.col_int.kind' = 'sequence',\n  'fields.col_int.start' = '1',\n  'fields.col_int.end' = '100000',\n  'rows-per-second' = '10'\n);\n\n-- ============================================\n-- STEP 5a: Sample behaviour: one per second\n-- STEP 5b: Sample behaviour: one per 5 seconds\n-- STEP 5c: Sample behaviour: turn off sampling\n-- STEP 5d: Sample behaviour: sample all\n-- ============================================\n",
+  "runtime_config" : {
+    "execution_mode" : "SESSION",
+    "runtime_mode" : "STREAMING",
+    "parallelism" : 1,
+    "sample_interval" : 1000,
+    "sample_count" : 100,
+    "window_size" : 100,
+    "start_with_savepoint" : false,
+    "savepoint_directory_path" : null,
+    "log_config" : null
+  },
+  "kubernetes_config" : {
+    "kubernetes_deployment_mode" : "NATIVE",
+    "restart_failed_job" : false,
+    "job_manager_replicas" : 1,
+    "job_manager_resource_config" : {
+      "cpu_request" : null,
+      "memory_request" : null,
+      "cpu_limit" : null,
+      "memory_limit" : null,
+      "ephemeral_storage" : null
+    },
+    "task_manager_resource_config" : {
+      "cpu_request" : null,
+      "memory_request" : null,
+      "cpu_limit" : null,
+      "memory_limit" : null,
+      "ephemeral_storage" : null
+    }
+  }
+}

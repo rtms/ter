@@ -1,0 +1,35 @@
+{
+  "job_name" : "tc_05_dashboard",
+  "api_endpoints" : [ ],
+  "sql" : "\n-- ============================================\n-- TC-05: Dashboard Widgets\n-- ============================================\n-- Preparation: create and execute a sampling job first\n-- (use tc-04 datagen table or create a new one)\n--\n-- STEP 1: Go to Dashboard > New Widget\n--   Expand the job, select 'Sampler'\n--   EXPECTED: preview widget shows samples\n--\n-- STEP 2: Set widget name to 'Sampler widget'\n--   EXPECTED: name shows on preview header\n--\n-- STEP 3: Turn on pagination in Data Grid section\n--   EXPECTED: pagination footer appears\n--\n-- STEP 4: Click Create\n--   EXPECTED: widget appears on dashboard\n--\n-- STEP 5: Drag widget to different column\n--   EXPECTED: snaps to nearest column\n--\n-- STEP 6: Resize widget using bottom-right handle\n--   EXPECTED: resizes and snaps to grid\n--\n-- STEP 7: Pause auto-update\n--   EXPECTED: warning icon, updates stop\n--\n-- STEP 8: Resume auto-update\n--   EXPECTED: updates restart\n--\n-- STEP 9: Edit widget > verify data source highlighted\n-- STEP 10: Verify pagination is on in Data Grid\n-- STEP 11: Click Back to close wizard\n--\n-- STEP 12: Maximize widget (three-dot menu)\n--   EXPECTED: takes full width/height\n--\n-- STEP 13: Restore widget\n--   EXPECTED: original size/position\n--\n-- STEP 14: Stop the sampling job, go to dashboard\n--   EXPECTED: error message on widget\n--\n-- STEP 15: Click 'Go to Job' link on error\n--   EXPECTED: redirected to job workspace\n--\n-- STEP 16: Delete job, go to dashboard\n--   EXPECTED: error - job not found\n--\n-- STEP 17: Enter full-screen mode\n--   EXPECTED: notification, gridster fills viewport\n--\n-- STEP 18: Press ESC\n--   EXPECTED: header reappears\n--\n-- STEP 19: Refresh page\n--   EXPECTED: widgets reload with same sizes/positions\n--\n-- STEP 20: Switch to new project > Dashboard\n--   EXPECTED: dashboard is empty\n--\n-- STEP 21: Switch back > Dashboard\n--   EXPECTED: widgets reloaded\n--\n-- STEP 22: Remove widget via three-dot menu\n--   EXPECTED: widget removed\n--\n-- STEP 23: Reload page\n--   EXPECTED: widget not loaded\n-- ============================================\nSELECT 'See comments above for dashboard UI test steps' AS instructions;\n",
+  "runtime_config" : {
+    "execution_mode" : "SESSION",
+    "runtime_mode" : "STREAMING",
+    "parallelism" : 1,
+    "sample_interval" : 1000,
+    "sample_count" : 100,
+    "window_size" : 100,
+    "start_with_savepoint" : false,
+    "savepoint_directory_path" : null,
+    "log_config" : null
+  },
+  "kubernetes_config" : {
+    "kubernetes_deployment_mode" : "NATIVE",
+    "restart_failed_job" : false,
+    "job_manager_replicas" : 1,
+    "job_manager_resource_config" : {
+      "cpu_request" : null,
+      "memory_request" : null,
+      "cpu_limit" : null,
+      "memory_limit" : null,
+      "ephemeral_storage" : null
+    },
+    "task_manager_resource_config" : {
+      "cpu_request" : null,
+      "memory_request" : null,
+      "cpu_limit" : null,
+      "memory_limit" : null,
+      "ephemeral_storage" : null
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "job_name" : "tc_01_api_invitations",
+  "api_endpoints" : [ ],
+  "sql" : "\n-- ============================================\n-- TC-01: Project Invitations (V2 API)\n-- ============================================\n-- This test is executed via the API Explorer.\n-- Log in as alice in one browser, bob in another.\n--\n-- STEP 1: Create a project as alice\n--   POST /api/v2/projects\n--   {\"name\": \"invitation-test\"}\n--\n-- STEP 2: Invite bob (use the project_id from step 1)\n--   POST /api/v2/project-invitations\n--   {\"project_id\": \"<id>\", \"username\": \"bob\", \"access_level\": \"member\"}\n--   EXPECTED: 200 OK\n--\n-- STEP 3: List invitations as bob\n--   GET /api/v2/project-invitations\n--   EXPECTED: list with one invitation\n--\n-- STEP 4: List invitations for user/project with none\n--   EXPECTED: empty list\n--\n-- STEP 5: Accept invitation as bob\n--   POST /api/v2/project-invitations/accept/<projectId>\n--   GET /api/v2/projects\n--   EXPECTED: invitation gone, bob sees the project\n--\n-- STEP 6: Create new invitation, then delete it\n--   DELETE /api/v2/project-invitations/<id>\n--   EXPECTED: invitation deleted\n-- ============================================\nSELECT 'See comments above for API test steps' AS instructions;\n",
+  "runtime_config" : {
+    "execution_mode" : "SESSION",
+    "runtime_mode" : "STREAMING",
+    "parallelism" : 1,
+    "sample_interval" : 1000,
+    "sample_count" : 100,
+    "window_size" : 100,
+    "start_with_savepoint" : false,
+    "savepoint_directory_path" : null,
+    "log_config" : null
+  },
+  "kubernetes_config" : {
+    "kubernetes_deployment_mode" : "NATIVE",
+    "restart_failed_job" : false,
+    "job_manager_replicas" : 1,
+    "job_manager_resource_config" : {
+      "cpu_request" : null,
+      "memory_request" : null,
+      "cpu_limit" : null,
+      "memory_limit" : null,
+      "ephemeral_storage" : null
+    },
+    "task_manager_resource_config" : {
+      "cpu_request" : null,
+      "memory_request" : null,
+      "cpu_limit" : null,
+      "memory_limit" : null,
+      "ephemeral_storage" : null
+    }
+  }
+}
