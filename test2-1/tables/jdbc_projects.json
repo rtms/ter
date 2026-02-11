@@ -1,0 +1,22 @@
+{
+  "metadata" : {
+    "schema.0.data-type" : "VARCHAR(2147483647) NOT NULL",
+    "schema.2.name" : "description",
+    "schema.1.name" : "name",
+    "schema.4.name" : "active_environment_id",
+    "url" : "jdbc:postgresql://ssb-postgresql:5432/ssb_admin",
+    "schema.1.data-type" : "VARCHAR(2147483647)",
+    "schema.3.data-type" : "VARCHAR(2147483647)",
+    "password" : "cloudera",
+    "schema.2.data-type" : "VARCHAR(2147483647)",
+    "schema.3.name" : "mv_prefix",
+    "connector" : "jdbc",
+    "table-name" : "projects",
+    "schema.4.data-type" : "INT",
+    "schema.0.name" : "id",
+    "username" : "ssb_admin"
+  },
+  "type" : "ssb",
+  "table_name" : "jdbc_projects",
+  "transform_code_b64_encoded" : false
+}
